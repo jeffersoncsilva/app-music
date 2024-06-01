@@ -15,15 +15,15 @@ import com.jefferson.appmusic.ui.componentes.basicos.InputTextNormal
 import com.jefferson.appmusic.ui.componentes.basicos.InputTextPassword
 
 @Composable
-fun CampoLogin(onLoginClick: () -> Unit, modifier: Modifier = Modifier){
+fun CampoLogin(email: String, senha: String, onUpdateSenha: (String) -> Unit, onUpdateEmail: (String) -> Unit, onLoginClick: () -> Unit, modifier: Modifier = Modifier){
     Column(
         modifier = modifier,
         verticalArrangement =  Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        InputTextNormal(hint = stringResource(id = R.string.email))
+        InputTextNormal(hint = stringResource(id = R.string.email), text = email, aoMudarValor = onUpdateEmail)
         Spacer(modifier = Modifier.height(16.dp))
-        InputTextPassword(hint = stringResource(id = R.string.password))
+        InputTextPassword(hint = stringResource(id = R.string.password), senha, onUpdateSenha)
         Spacer(modifier = modifier.height(16.dp))
         BotaoBasico(nome = stringResource(id = R.string.logar_app), onClick = onLoginClick)
     }

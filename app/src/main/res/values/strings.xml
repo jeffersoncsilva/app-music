@@ -4,4 +4,13 @@
     <string name="email">E-Mail</string>
     <string name="password">Senha</string>
     <string name="logo_descricao">Logo do app.</string>
+    <string name="login">Login</string>
+    <string name="home">Home</string>
+    <string name="playlists">Playlists</string>
+    <string name="configuracoes">Configuração</string>
+    <string name="player_musica_tela">Tocando agora…</string>
+    <string name="playlists_icon">Playlists</string>
+    <string name="home_icon">Home</string>
+    <string name="settings">Configurações</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

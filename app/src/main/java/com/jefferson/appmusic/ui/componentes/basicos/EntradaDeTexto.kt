@@ -22,12 +22,10 @@ import com.jefferson.appmusic.R
 
 
 @Composable
-fun InputTextNormal(hint: String, aoMudarValor: () -> Unit = { }){
-    var text by rememberSaveable { mutableStateOf("") }
-
+fun InputTextNormal(hint: String, text: String, aoMudarValor: (String) -> Unit = { }){
     TextField(
         value = text,
-        onValueChange = { text = it },
+        onValueChange = aoMudarValor,
         label = { Text(hint) },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -43,12 +41,11 @@ fun InputTextNormal(hint: String, aoMudarValor: () -> Unit = { }){
 }
 
 @Composable
-fun InputTextPassword(hint: String){
-    var password by rememberSaveable { mutableStateOf("") }
+fun InputTextPassword(hint: String, text: String, aoMudarValor: (String) -> Unit = { }){
     var passwordHidder by rememberSaveable { mutableStateOf(true) }
     TextField(
-        value = password,
-        onValueChange = { password = it },
+        value = text,
+        onValueChange = aoMudarValor,
         singleLine = true,
         label = { Text(hint) },
         visualTransformation = if(passwordHidder) PasswordVisualTransformation() else VisualTransformation.None,
@@ -58,7 +55,7 @@ fun InputTextPassword(hint: String){
                 onClick = { passwordHidder = !passwordHidder }){
                 val visibilityIcon = if(passwordHidder)  ImageVector.vectorResource(id = R.drawable.ic_visibility) else ImageVector.vectorResource(id = R.drawable.ic_visibility_off)
                 val description = if(passwordHidder) "MOSTRAR SENHA" else "ESCONDER SENHA"
-                Icon(imageVector = visibilityIcon, contentDescription = description)
+                Icon(imageVector = visibilityIcon, contentDescription = description, tint = MaterialTheme.colorScheme.primary)
             }
         },
         colors = TextFieldDefaults.colors(
@@ -75,11 +72,11 @@ fun InputTextPassword(hint: String){
 @Preview
 @Composable
 fun InputTextNormalPreview(){
-    InputTextNormal(hint = "Nome")
+    InputTextNormal(hint = "Nome", "Texto")
 }
 
 @Preview
 @Composable
 fun InputTextPasswordPreview(){
-    InputTextPassword(hint = "Senha")
+    InputTextPassword(hint = "Senha", "Senha")
 }

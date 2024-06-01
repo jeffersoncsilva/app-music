@@ -6,28 +6,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.jefferson.appmusic.R
 import com.jefferson.appmusic.ui.componentes.CampoLogin
+import com.jefferson.appmusic.viewmodels.LoginViewModel
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(vm: LoginViewModel?){
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         val (loginCard, logo) = createRefs()
+        val state by vm?.uiState!!.collectAsState()
 
         Image(
             modifier = Modifier
@@ -44,7 +45,11 @@ fun LoginScreen(){
         )
 
         CampoLogin(
-            onLoginClick = { /*TODO*/ },
+            email = state.currentEmailState,
+            senha = state.currentSenhaState,
+            onUpdateEmail = { vm?.updateEmail(it) },
+            onUpdateSenha = { vm?.updateSenha(it) },
+            onLoginClick = { vm?.loginClick() },
             modifier = Modifier.constrainAs(loginCard){
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
@@ -59,5 +64,5 @@ fun LoginScreen(){
 @Preview
 @Composable
 fun LoginScreenPreview(){
-    LoginScreen()
+    LoginScreen(null)
 }
